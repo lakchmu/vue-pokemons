@@ -1,6 +1,6 @@
 <template>
-  <a-layout-content style="padding: 0 50px">
-    <a-page-header style="border: 1px solid rgb(235, 237, 240)" title="Posts" />
+  <a-layout-content>
+    <my-header :title="'Posts'" />
     <div class="tools">
       <my-button type="primary" @click="showModal">+add post</my-button>
       <a-select

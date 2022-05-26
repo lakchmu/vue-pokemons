@@ -20,9 +20,9 @@ app.use(Select)
 app.use(PageHeader)
 app.use(Layout)
 
-// app.config.compilerOptions.isCustomElement = (tag) => {
-//   return tag.startsWith('my-')
-// }
+app.config.compilerOptions.isCustomElement = (tag) => {
+  return tag.startsWith('my-')
+}
 
 app.use(router)
 

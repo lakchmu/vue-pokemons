@@ -1,3 +1,4 @@
 import PostsPage from '@/pages/PostsPage'
+import PokemonsPage from '@/pages/PokemonsPage'
 
-export default PostsPage
+export { PostsPage, PokemonsPage }
