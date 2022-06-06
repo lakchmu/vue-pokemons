@@ -13,10 +13,13 @@ import App from './App.vue'
 import router from './router'
 
 import components from '@/shared'
+import { store, key } from '@/providers/pokemons'
 
 import type { Component } from 'vue'
 
 const app = createApp(App)
+
+app.use(store, key)
 
 components.forEach((component: Component) =>
   app.component(component.name as string, component)

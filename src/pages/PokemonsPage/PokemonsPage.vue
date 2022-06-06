@@ -13,17 +13,22 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { useStore } from 'vuex'
+
+import { key } from '@/features/pokemons'
 
 import { PokemonCard } from '@/widgets'
-import usePokemons from '@/entities/pokemon/hook'
 
 export default defineComponent({
-  setup() {
-    const { pokemons } = usePokemons()
-
-    return {
-      pokemons,
-    }
+  computed: {
+    pokemons() {
+      const store = useStore(key)
+      return store.state.pokemons
+    },
+  },
+  mounted() {
+    const store = useStore(key)
+    store.dispatch('getPokemons')
   },
   name: 'pokemons-page',
   components: { PokemonCard },

@@ -20,6 +20,7 @@ const usePokemons = () => {
           return pokemonResponseToModel(data)
         })
       )
+      return pokemons.value
     } catch (error) {
       console.error(JSON.stringify(error))
     } finally {
