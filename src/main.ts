@@ -1,5 +1,13 @@
 import { createApp } from 'vue'
-import { Button, Modal, Select, PageHeader, Layout } from 'ant-design-vue'
+import {
+  Button,
+  Modal,
+  Select,
+  PageHeader,
+  Layout,
+  Table,
+  Card,
+} from 'ant-design-vue'
 
 import App from './App.vue'
 import router from './router'
@@ -19,6 +27,8 @@ app.use(Modal)
 app.use(Select)
 app.use(PageHeader)
 app.use(Layout)
+app.use(Table)
+app.use(Card)
 
 app.config.compilerOptions.isCustomElement = (tag) => {
   return tag.startsWith('my-')

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+
+import { palette } from '@/shared'
 </script>
 
 <template>
@@ -23,9 +25,15 @@ import { RouterLink, RouterView } from 'vue-router'
 
 #app {
   display: flex;
+  color: v-bind('palette.text.main');
   flex-direction: column;
   min-height: 100vh;
   margin: 0;
   padding: 0;
+}
+
+h2,
+p {
+  color: v-bind('palette.text.main');
 }
 </style>
