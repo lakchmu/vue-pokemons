@@ -7,6 +7,7 @@ import {
   Layout,
   Table,
   Card,
+  Spin,
 } from 'ant-design-vue'
 
 import App from './App.vue'
@@ -32,6 +33,7 @@ app.use(PageHeader)
 app.use(Layout)
 app.use(Table)
 app.use(Card)
+app.use(Spin)
 
 app.config.compilerOptions.isCustomElement = (tag) => {
   return tag.startsWith('my-')

@@ -8,6 +8,7 @@
         :pokemon="pokemon"
       />
     </div>
+    <loading-block />
   </a-layout-content>
 </template>
 
@@ -15,23 +16,22 @@
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
 
-import { key } from '@/features/pokemons'
+import { key } from '@/providers/pokemons'
 
-import { PokemonCard } from '@/widgets'
+import { PokemonCard, LoadingBlock } from '@/widgets'
 
 export default defineComponent({
+  mounted() {
+    useStore(key).dispatch('getPokemons')
+  },
   computed: {
     pokemons() {
       const store = useStore(key)
       return store.state.pokemons
     },
   },
-  mounted() {
-    const store = useStore(key)
-    store.dispatch('getPokemons')
-  },
   name: 'pokemons-page',
-  components: { PokemonCard },
+  components: { PokemonCard, LoadingBlock },
 })
 </script>
 

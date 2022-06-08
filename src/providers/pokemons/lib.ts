@@ -1,35 +1,43 @@
-import api from '@/shared/api'
+import { ref } from 'vue'
 
+import api from '@/shared/api'
 import { pokemonResponseToModel } from '@/entities/pokemon'
 
+import type { Ref } from 'vue'
 import type { Pokemon } from '@/entities/pokemon/types'
 
 type GetPokemonsResponse = {
-  pokemons: Pokemon[]
+  getPokemons: () => void
+  pokemons: Ref<Pokemon[]>
   isLoading: boolean
 }
 
-export const getPokemons = async (): Promise<GetPokemonsResponse> => {
-  const page = 0
+export const usePokemons = async (): Promise<GetPokemonsResponse> => {
   const limit = 24
-  let pokemons = [] as Pokemon[]
+  const pokemons = ref([] as Pokemon[])
+  let page = 0
   let isLoading = true
 
-  try {
-    const { data } = await api.getPokemons(limit, page)
-    pokemons = await Promise.all(
-      data.results.map(async ({ url }: any) => {
-        const { data } = await api.getPokemon(url)
-        return pokemonResponseToModel(data)
-      })
-    )
-  } catch (error) {
-    console.error(JSON.stringify(error))
-  } finally {
-    isLoading = false
+  const getPokemons = async () => {
+    isLoading = true
+    try {
+      const { data } = await api.getPokemons(limit, page)
+      pokemons.value = await Promise.all(
+        data.results.map(async ({ url }: any) => {
+          const { data } = await api.getPokemon(url)
+          return pokemonResponseToModel(data)
+        })
+      )
+    } catch (error) {
+      console.error(JSON.stringify(error))
+    } finally {
+      isLoading = false
+      page += 1
+    }
   }
 
   return {
+    getPokemons,
     pokemons,
     isLoading,
   }

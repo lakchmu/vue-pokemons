@@ -18,9 +18,10 @@ import { palette } from '@/shared'
   </my-page>
 </template>
 
-<style>
-@import 'ant-design-vue/dist/antd.css';
+<style lang="less">
+@import 'ant-design-vue/dist/antd.less';
 
+@import '@/assets/ant-theme.less';
 @import '@/assets/base.css';
 
 #app {
