@@ -45,9 +45,9 @@ export default defineComponent({
   background-color: v-bind(color);
   border-radius: 20px;
   box-shadow: 0 3px 15px rgb(100 100 100 / 50%);
-  margin: 10px;
   padding: 20px;
   text-align: center;
+  height: 274px;
 }
 .img-wrap {
   background-color: rgba(255, 255, 255, 0.6);
