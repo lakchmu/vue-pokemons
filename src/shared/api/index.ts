@@ -1,5 +1,5 @@
-import { getPokemons, getPokemon } from './pokemonsApi'
+import * as pokemonsApi from './pokemonsApi'
 
-const api = { getPokemons, getPokemon }
+const api = { ...pokemonsApi }
 
 export default api

@@ -2,18 +2,18 @@ import { PokemonType } from './types'
 
 import type { Pokemon } from './types'
 
-export const pokemonResponseToModel = ({
-  id,
-  name,
-  types,
-  sprites,
-}: any): Pokemon => ({
-  id,
-  name,
-  types: types.map(
-    ({ type: { name } }: any) => PokemonType[name.toUpperCase()]
-  ),
-  url: sprites.other.dream_world.front_default,
+export const pokemonResponseToModel = (pokemon: any): Pokemon => ({
+  id: pokemon.id,
+  name: pokemon.name,
+  types: pokemon.types.map(({ type: { name } }: any) => PokemonType[name.toUpperCase()]),
+  url: pokemon.sprites.other.dream_world.front_default,
+  experience: pokemon.base_experience,
+  hp: pokemon.stats.find((item: any) => item.stat.name == 'hp').base_stat,
+  defense: pokemon.stats.find((item: any) => item.stat.name == 'defense').base_stat,
+  attack: pokemon.stats.find((item: any) => item.stat.name == 'attack').base_stat,
+  speed: pokemon.stats.find((item: any) => item.stat.name == 'speed').base_stat,
+  weight: pokemon.weight,
+  height: pokemon.height,
 })
 
 export const pokemonTypeColorMap = {

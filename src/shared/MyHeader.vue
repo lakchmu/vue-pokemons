@@ -15,7 +15,8 @@ export default defineComponent({
 
 <style scoped>
 .root {
-  border: 1px solid rgb(235, 237, 240);
+  border: 2px solid rgb(235, 237, 240);
   margin-bottom: 40px;
+  max-height: 76px;
 }
 </style>

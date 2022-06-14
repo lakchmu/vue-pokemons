@@ -5,7 +5,7 @@ import type { Pokemon } from '@/entities/pokemon/types'
 
 import { pokemonResponseToModel } from './libs'
 
-const usePokemons = () => {
+export const usePokemons = () => {
   const page = 0
   const limit = 24
   const isLoading = ref(true)
@@ -16,7 +16,7 @@ const usePokemons = () => {
       const { data } = await api.getPokemons(limit, page)
       pokemons.value = await Promise.all(
         data.results.map(async ({ url }: any) => {
-          const { data } = await api.getPokemon(url)
+          const { data } = await api.getPokemonByUrl(url)
           return pokemonResponseToModel(data)
         })
       )
@@ -35,4 +35,25 @@ const usePokemons = () => {
   }
 }
 
-export default usePokemons
+export const usePokemon = (id: string) => {
+  const isLoading = ref(false)
+  const pokemon = ref({} as Pokemon)
+
+  const getPokemon = async () => {
+    try {
+      isLoading.value = true
+      const { data } = await api.getPokemonById(id)
+      pokemon.value = pokemonResponseToModel(data)
+    } catch (error) {
+      console.error(JSON.stringify(error))
+    } finally {
+      isLoading.value = false
+    }
+  }
+
+  onMounted(getPokemon)
+
+  return {
+    pokemon,
+  }
+}

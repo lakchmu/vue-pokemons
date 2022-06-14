@@ -1,15 +1,17 @@
 <template>
-  <a-layout-header class="page-header">
-    <a-menu class="page-menu">
-      <slot name="menu"></slot>
-    </a-menu>
-  </a-layout-header>
-  <a-layout-content class="page-content">
-    <slot name="page"></slot>
-  </a-layout-content>
-  <a-layout-footer class="footer"
-    ><span>Made by DKurmaeva, 2022</span></a-layout-footer
-  >
+  <div class="root">
+    <a-layout-header class="page-header">
+      <a-menu class="page-menu">
+        <slot name="menu"></slot>
+      </a-menu>
+    </a-layout-header>
+    <a-layout-content class="page-content">
+      <slot name="page"></slot>
+    </a-layout-content>
+    <a-layout-footer class="footer">
+      <span>Made by DKurmaeva, 2022</span>
+    </a-layout-footer>
+  </div>
 </template>
 
 <script lang="ts">
@@ -28,6 +30,12 @@ export default defineComponent({
 </script>
 
 <style>
+.root {
+  background-color: #fdfdfd;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
 .page-header {
   background-color: v-bind(backgroundColor) !important;
 }
@@ -63,7 +71,6 @@ export default defineComponent({
 .page-menu,
 .footer span {
   align-self: center;
-  display: inline-block;
   max-width: 1080px;
   width: 100%;
 }

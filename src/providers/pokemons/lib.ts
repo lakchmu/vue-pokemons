@@ -24,7 +24,7 @@ export const usePokemons = async (): Promise<GetPokemonsResponse> => {
       const { data } = await api.getPokemons(limit, page)
       pokemons.value = await Promise.all(
         data.results.map(async ({ url }: any) => {
-          const { data } = await api.getPokemon(url)
+          const { data } = await api.getPokemonByUrl(url)
           return pokemonResponseToModel(data)
         })
       )
