@@ -1,50 +1,57 @@
 <template>
   <div class="root">
     <my-header title="Pokemons" />
-    <Grid :length="48" :pageSize="24" :pageProvider="pageProvider" class="grid">
+    <!-- <Grid :length="200" :pageSize="24" :scrollTo="24" :pageProvider="pageProvider" class="grid">
       <template v-slot:default="{ item, style }">
         <pokemon-card :style="style" :pokemon="item" />
       </template>
-    </Grid>
-    <!-- <loading-block /> -->
+    </Grid> -->
+    <div class="grid" v-if="pokemons.length">
+      <pokemon-card v-for="pokemon in pokemons" :pokemon="pokemon" v-bind:key="pokemon.id" />
+    </div>
+    <loading-block />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { useStore } from 'vuex'
-import Grid from 'vue-virtual-scroll-grid'
+import { defineComponent, onMounted } from 'vue'
+import { mapState } from 'pinia'
+// import Grid from 'vue-virtual-scroll-grid'
 
-import { key } from '@/providers/pokemons'
-import api from '@/shared/api'
+// import api from '@/shared/api'
 
-import { PokemonCard } from '@/widgets'
-import { pokemonResponseToModel, type Pokemon } from '@/entities/pokemon'
+import { PokemonCard, LoadingBlock } from '@/widgets'
+import { usePokemonStore } from '@/providers/pinia/store'
 
 export default defineComponent({
-  methods: {
-    pageProvider: async (pageNumber: number, pageSize: number): Promise<Pokemon[]> => {
-      let results = [] as Pokemon[]
-      try {
-        const { data } = await api.getPokemons(pageSize, pageNumber)
-        results = await Promise.all(
-          data.results.map(async ({ url }: any) => {
-            const { data } = await api.getPokemonByUrl(url)
-            return pokemonResponseToModel(data)
-          })
-        )
-      } catch (error) {
-        console.error(JSON.stringify(error))
-      }
+  setup() {
+    const store = usePokemonStore()
 
-      return results
-    },
+    onMounted(store.init)
   },
-  mounted() {
-    useStore(key).dispatch('getPokemons')
+  // methods: {
+  //   pageProvider: async (pageNumber: number, pageSize: number): Promise<Pokemon[]> => {
+  //     let results = [] as Pokemon[]
+  //     try {
+  //       const { data } = await api.getPokemons(pageSize, pageNumber)
+  //       results = await Promise.all(
+  //         data.results.map(async ({ url }: any) => {
+  //           const { data } = await api.getPokemonByUrl(url)
+  //           return pokemonResponseToModel(data)
+  //         })
+  //       )
+  //     } catch (error) {
+  //       console.error(JSON.stringify(error))
+  //     }
+
+  //     return results
+  //   },
+  // },
+  computed: {
+    ...mapState(usePokemonStore, ['pokemons']),
   },
   name: 'pokemons-page',
-  components: { Grid, PokemonCard },
+  components: { PokemonCard, LoadingBlock },
 })
 </script>
 

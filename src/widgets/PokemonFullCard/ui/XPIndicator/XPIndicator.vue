@@ -1,14 +1,14 @@
 <template>
-  <div class="xp-line row" :style="[getWidth, getGradient]" />
+  <div class="xp-line" :style="[getWidth, getGradient]" />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-import { pokemonTypeColorMap, type PokemonType } from '@/entities/pokemon'
+import { pokemonTypeColorMap, PokemonType } from '../../../../entities/pokemon'
 
 export default defineComponent({
-  name: 'my-indicator',
+  name: 'xp-indicator',
   props: {
     types: {
       type: Object as () => PokemonType[],
@@ -39,4 +39,9 @@ export default defineComponent({
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.xp-line {
+  height: 7px;
+  border-radius: 5px;
+}
+</style>

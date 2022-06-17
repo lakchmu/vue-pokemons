@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import { onMounted } from 'vue'
 
 import { palette } from '@/shared'
+import { useLocalStorage } from './entities/pokemon/hook'
+
+onMounted(useLocalStorage)
 </script>
 
 <template>
@@ -12,6 +16,9 @@ import { palette } from '@/shared'
       </a-menu-item>
       <a-menu-item class="page-menu-item" key="pokemons">
         <RouterLink to="/">Pokemons</RouterLink>
+      </a-menu-item>
+      <a-menu-item class="page-menu-item" key="search">
+        <RouterLink to="/search">Search</RouterLink>
       </a-menu-item>
     </template>
     <template v-slot:page><RouterView /></template>
