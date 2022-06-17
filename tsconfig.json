@@ -1,6 +1,6 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "src/shared/api/.ts"],
+  "include": ["env.d.ts", "vuex-shim.d.ts", "src/**/*", "src/**/*.vue", "src/**/*.ts", "src/shared/api/.ts"],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {

@@ -35,25 +35,18 @@ export const usePokemons = () => {
   }
 }
 
-export const usePokemon = (id: string) => {
-  const isLoading = ref(false)
-  const pokemon = ref({} as Pokemon)
+const LOCAL_STORAGE_KEY = 'pokemons'
 
-  const getPokemon = async () => {
-    try {
-      isLoading.value = true
-      const { data } = await api.getPokemonById(id)
-      pokemon.value = pokemonResponseToModel(data)
-    } catch (error) {
-      console.error(JSON.stringify(error))
-    } finally {
-      isLoading.value = false
-    }
-  }
+export const useLocalStorage = async () => {
+  if (localStorage.getItem(LOCAL_STORAGE_KEY)) return
 
-  onMounted(getPokemon)
+  const { data } = await api.getAllPokemons()
+  const pokemons = await Promise.all(
+    data.results.map(async ({ url }: any) => {
+      const { data } = await api.getPokemonByUrl(url)
+      return pokemonResponseToModel(data)
+    })
+  )
 
-  return {
-    pokemon,
-  }
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(pokemons))
 }

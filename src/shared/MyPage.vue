@@ -1,7 +1,7 @@
 <template>
   <div class="root">
     <a-layout-header class="page-header">
-      <a-menu class="page-menu">
+      <a-menu class="page-menu" mode="horizontal">
         <slot name="menu"></slot>
       </a-menu>
     </a-layout-header>
@@ -29,15 +29,17 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style lang="scss">
 .root {
   background-color: #fdfdfd;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
-.page-header {
+.page-header,
+.page-menu {
   background-color: v-bind(backgroundColor) !important;
+  border-bottom: 1px solid #fff;
 }
 .page-content {
   display: flex;
@@ -56,8 +58,10 @@ export default defineComponent({
 .page-menu-item:first-child {
   margin-left: -16px;
 }
-.page-menu-item a {
-  color: #fff !important;
+.page-menu-item {
+  a {
+    color: #fff !important;
+  }
 }
 .page-menu-item a:hover {
   opacity: 0.75;

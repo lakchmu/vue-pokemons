@@ -8,7 +8,7 @@
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
 
-import { key } from '@/providers/pokemons'
+import { key } from '@/providers/vuex'
 import { palette } from '@/shared'
 
 export default defineComponent({
