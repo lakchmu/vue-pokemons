@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+
+import { palette } from '@/shared'
 </script>
 
 <template>
@@ -16,16 +18,23 @@ import { RouterLink, RouterView } from 'vue-router'
   </my-page>
 </template>
 
-<style>
-@import 'ant-design-vue/dist/antd.css';
+<style lang="less">
+@import 'ant-design-vue/dist/antd.less';
 
+@import '@/assets/ant-theme.less';
 @import '@/assets/base.css';
 
 #app {
   display: flex;
+  color: v-bind('palette.text.main');
   flex-direction: column;
   min-height: 100vh;
   margin: 0;
   padding: 0;
+}
+
+h2,
+p {
+  color: v-bind('palette.text.main');
 }
 </style>
