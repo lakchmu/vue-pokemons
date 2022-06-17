@@ -5,7 +5,9 @@
     </div>
     <div class="content">
       <span class="id">#{{ getPokemonId }}</span>
-      <h2 class="name">{{ pokemon.name }}</h2>
+      <router-link :to="`/${pokemon.id}`">
+        <h2 class="name">{{ pokemon.name }}</h2></router-link
+      >
       <small>types: {{ pokemon.types.join(', ') }}</small>
     </div>
   </div>
@@ -40,7 +42,7 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style lang="scss" scoped>
 .card {
   background-color: v-bind(color);
   border-radius: 20px;
@@ -75,5 +77,13 @@ export default defineComponent({
   letter-spacing: 1px;
   text-transform: capitalize;
   font-size: 18px;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:active {
+    opacity: 0.6;
+  }
 }
 </style>

@@ -36,5 +36,7 @@ import { palette } from '@/shared'
 h2,
 p {
   color: v-bind('palette.text.main');
+  margin: 0;
+  padding: 0;
 }
 </style>

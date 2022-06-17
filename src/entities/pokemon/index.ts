@@ -1,2 +1,3 @@
 export * from './types'
-export { pokemonResponseToModel } from './libs'
+export { pokemonResponseToModel, pokemonTypeColorMap } from './libs'
+export { usePokemons, usePokemon } from './hook'

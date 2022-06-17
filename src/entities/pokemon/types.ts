@@ -3,6 +3,13 @@ export type Pokemon = {
   name: string
   url: string
   types: PokemonType[]
+  experience: string
+  hp: string
+  defense: string
+  attack: string
+  speed: string
+  height: string
+  weight: string
 }
 
 export enum PokemonType {

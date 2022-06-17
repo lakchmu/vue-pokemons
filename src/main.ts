@@ -1,14 +1,5 @@
 import { createApp } from 'vue'
-import {
-  Button,
-  Modal,
-  Select,
-  PageHeader,
-  Layout,
-  Table,
-  Card,
-  Spin,
-} from 'ant-design-vue'
+import { Button, Modal, Select, PageHeader, Layout, Table, Card, Spin, Tag } from 'ant-design-vue'
 
 import App from './App.vue'
 import router from './router'
@@ -22,9 +13,7 @@ const app = createApp(App)
 
 app.use(store, key)
 
-components.forEach((component: Component) =>
-  app.component(component.name as string, component)
-)
+components.forEach((component: Component) => app.component(component.name as string, component))
 
 app.use(Button)
 app.use(Modal)
@@ -34,6 +23,7 @@ app.use(Layout)
 app.use(Table)
 app.use(Card)
 app.use(Spin)
+app.use(Tag)
 
 app.config.compilerOptions.isCustomElement = (tag) => {
   return tag.startsWith('my-')
