@@ -1,37 +1,58 @@
 <template>
   <a-layout-content>
     <my-header title="Pokemons" />
-    <div class="content" v-if="pokemons.length">
-      <pokemon-card
-        v-for="pokemon in pokemons"
-        :key="pokemon.name"
-        :pokemon="pokemon"
-      />
-    </div>
-    <loading-block />
+    <Grid
+      :length="200"
+      :pageSize="24"
+      :pageProvider="pageProvider"
+      class="grid"
+    >
+      <template v-slot:default="{ item, style }">
+        <pokemon-card :style="style" :pokemon="item" />
+      </template>
+    </Grid>
+    <!-- <loading-block /> -->
   </a-layout-content>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
+import Grid from 'vue-virtual-scroll-grid'
 
 import { key } from '@/providers/pokemons'
+import api from '@/shared/api'
 
-import { PokemonCard, LoadingBlock } from '@/widgets'
+import { PokemonCard } from '@/widgets'
+import { pokemonResponseToModel, type Pokemon } from '@/entities/pokemon'
 
 export default defineComponent({
+  methods: {
+    pageProvider: async (
+      pageNumber: number,
+      pageSize: number
+    ): Promise<Pokemon[]> => {
+      let results = [] as Pokemon[]
+      try {
+        const { data } = await api.getPokemons(pageSize, pageNumber)
+        results = await Promise.all(
+          data.results.map(async ({ url }: any) => {
+            const { data } = await api.getPokemon(url)
+            return pokemonResponseToModel(data)
+          })
+        )
+      } catch (error) {
+        console.error(JSON.stringify(error))
+      }
+
+      return results
+    },
+  },
   mounted() {
     useStore(key).dispatch('getPokemons')
   },
-  computed: {
-    pokemons() {
-      const store = useStore(key)
-      return store.state.pokemons
-    },
-  },
   name: 'pokemons-page',
-  components: { PokemonCard, LoadingBlock },
+  components: { Grid, PokemonCard },
 })
 </script>
 
@@ -39,5 +60,10 @@ export default defineComponent({
 .content {
   display: flex;
   flex-wrap: wrap;
+}
+.grid {
+  display: grid;
+  grid-gap: 16px;
+  grid-template-columns: repeat(6, 1fr);
 }
 </style>
