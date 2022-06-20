@@ -35,7 +35,6 @@ export default defineComponent({
   },
   computed: {
     getPokemonId() {
-      // TODO
       return this.pokemon.id.toString().padStart(3, '0')
     },
   },
