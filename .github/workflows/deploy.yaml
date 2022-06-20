@@ -21,5 +21,7 @@ jobs:
       - run: echo "${{ secrets.SECRET }}" > "$HOME/.ssh/key"
       - run: chmod 600 "$HOME/.ssh/key"
       - run: npm ci
+      - env:
+          VITE_API: https://pokeapi.co/api/v2
       - run: npm run build
       - run: cd dist && rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . root@45.89.66.152:~/www/pokemons
