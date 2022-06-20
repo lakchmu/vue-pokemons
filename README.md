@@ -2,6 +2,9 @@
 
 Hello world app with vue3 and pokeapi.co/
 
+## Demo url
+http://vds2291655.my-ihor.ru/
+
 
 ## Project Setup
 
