@@ -1,19 +1,17 @@
 <template>
   <div class="root" ref="loadingBlock">
-    <a-spin />
+    <a-spin v-if="turnOn" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useStore } from 'vuex'
-
-import { key } from '@/providers/vuex'
 import { palette } from '@/shared'
+import { usePokemonStore } from '@/providers/pinia'
 
 export default defineComponent({
   mounted() {
-    const store = useStore(key)
+    const store = usePokemonStore()
 
     const options = {
       rootMargin: '0px',
@@ -21,8 +19,9 @@ export default defineComponent({
     }
 
     const callback = (entries: any) => {
-      if (entries[0].isIntersecting) {
-        store.dispatch('getPokemons')
+      this.turnOn = store.$state.pokemons.length < import.meta.env.VITE_POKEMONS_LIMIT
+      if (entries[0].isIntersecting && this.turnOn) {
+        store.init()
       }
     }
 
@@ -32,6 +31,7 @@ export default defineComponent({
   data() {
     return {
       backgroundColor: `${palette.main}`,
+      turnOn: true,
     }
   },
   name: 'loading-block',

@@ -24,4 +24,5 @@ jobs:
       - run: npm run build
         env:
           VITE_API: https://pokeapi.co/api/v2
+          VITE_POKEMONS_LIMIT: 1126
       - run: cd dist && rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . root@45.89.66.152:/opt/www/pokemons
