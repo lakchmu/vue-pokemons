@@ -12,7 +12,7 @@ export const usePokemonStore = defineStore({
   actions: {
     async init() {
       await getPokemons()
-      this.pokemons = pokemons.value
+      this.pokemons = [...this.pokemons, ...pokemons.value]
     },
   },
 })
